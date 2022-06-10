@@ -19,25 +19,31 @@ class InvokeCommand extends TwilioClientCommand {
     const request = getAxiosRequest(flags.method, args.url, data, flags['auth-token'])
 
     const response = await axios.default.request(request);
+    console.log(response);
 
-    if (flags.verbose) {
-      this.output(response.headers)
+    if (flags.include) {
+      console.log(response.request.res.rawHeaders);
+      const headerOutput = Object.entries(response.headers).map(([key, value]) => {
+        return `${key}: ${value}`
+      }).join('\n')
+      process.stdout.write(`HTTP/${response.request?.res.httpVersion || '1.1'} ${response.status} ${response.statusText}\n${headerOutput}\n\n`)
     }
 
-    this.output({ data: response.data });
+    process.stdout.write(response.data);
   }
 }
 
 InvokeCommand.flags = {
   'type': flags.enum({
-    options: ['sms'],
-    description: 'What type of ',
+    options: ['sms', 'voice'],
+    description: 'What type of webhook event should it emulate?',
     'default': 'sms'
   }),
   'method': flags.enum({
     options: ['GET', 'POST'],
     default: 'POST',
-    description: 'The HTTP method that should be used for the webhook request'
+    description: 'The HTTP method that should be used for the webhook request',
+    char: 'X'
   }),
   'auth-token': flags.string({
     description: 'The Auth Token to use to generate the X-Twilio-Signature. Required unless --no-signature is used.'
@@ -46,10 +52,10 @@ InvokeCommand.flags = {
     default: false,
     description: 'Circumvents the generation of the X-Twilio-Signature field',
   }),
-  'verbose': flags.boolean({
+  'include': flags.boolean({
     description: 'Output additional response data such as response headers',
     default: false,
-    char: 'v'
+    char: 'i'
   }),
   'data-urlencode': flags.string({
     description: 'Override a request field. In the format Key=Value. Example: Body=Hello',
@@ -61,6 +67,8 @@ InvokeCommand.flags = {
   }),
   ...TwilioClientCommand.flags,
 };
+
+delete InvokeCommand.flags['cli-output-format'];
 
 InvokeCommand.args = [
   {
