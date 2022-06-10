@@ -6,8 +6,6 @@
 
 This plugin adds functionality to the [Twilio CLI](https://github.com/twilio/twilio-cli) to invoke emulated webhook events including valid `X-Twilio-Signature` to validate the webhooks and TwiML Bins you are creating for your Twilio applications.
 
-> **Important**: This version requires Twilio CLI version 3.0 or newer. For Twilio CLI version 2.x you have to use plugin-webhook version 1.2.6.
-
 <!-- toc -->
 
 <!-- tocstop -->
