@@ -7,9 +7,8 @@
     "Dominik Kundel <dkundel@twilio.com>"
   ],
   "dependencies": {
-    "@oclif/command": "^1.5.19",
-    "@oclif/config": "^1.13.3",
-    "@twilio/cli-core": "^6.0.0",
+    "@oclif/core": "^1.16.0",
+    "@twilio/cli-core": "^7.0.0",
     "inquirer": "^8.0.0",
     "ora": "^5.4.0"
   },

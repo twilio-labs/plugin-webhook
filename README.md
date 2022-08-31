@@ -54,21 +54,40 @@ ARGUMENTS
   URL  The URL of your webhook
 
 OPTIONS
-  -l=(debug|info|warn|error|none)  [default: info] Level of logging messages.
-  -o=(columns|json|tsv|none)       [default: columns] Format of command output.
-  -p, --profile=profile            Shorthand identifier for your profile.
-  -v, --verbose                    Output additional response data such as response headers
+  -X, --method=(GET|POST)              [default: POST] The HTTP method that should be used for the webhook request
+  -d, --data-urlencode=data-urlencode  Override a request field. In the format Key=Value. Example: Body=Hello
+  -i, --include                        Output additional response data such as response headers
+  -l=(debug|info|warn|error|none)      [default: info] Level of logging messages.
+  -p, --profile=profile                Shorthand identifier for your profile.
 
-  --auth-token=auth-token          The Auth Token to use to generate the X-Twilio-Signature. Required unless
-                                   --no-signature is used.
+  --account-sid=account-sid            The Account SID to use in the event data. Defaults to your active CLI profile or
+                                       otherwise TWILIO_ACCOUNT_SID environment variable.
 
-  --method=(GET|POST)              [default: POST] The HTTP method that should be used for the webhook request
+  --auth-token=auth-token              The Auth Token to use to generate the X-Twilio-Signature. Required unless
+                                       --no-signature is used. Defaults to value of TWILIO_AUTH_TOKEN environment
+                                       variable if nothing is passed.
 
-  --no-signature                   Circumvents the generation of the X-Twilio-Signature field
+  --no-signature                       Circumvents the generation of the X-Twilio-Signature field
 
-  --silent                         Suppress output and logs. This is a shorthand for "-l none -o none".
+  --silent                             Suppress  output and logs. This is a shorthand for "-l none -o none".
 
-  --type=(sms|mms)                 [default: sms] What type of
+  --type=(sms|voice)                   [default: sms] What type of webhook event should it emulate?
+
+EXAMPLES
+  # Invoke with a simulated call event
+  twilio webhook:invoke <your-url> --type=voice
+
+  # Pass in an explict auth token and Account SID to use
+  twilio webhook:invoke <your-url> --auth-token=$TWILIO_AUTH_TOKEN --account-sid=$TWILIO_ACCOUNT_SID --type=voice
+
+  # Simulate an SMS with the message "Hello"
+  twilio webhook:invoke <your-url> --auth-token=$TWILIO_AUTH_TOKEN --type=sms -d Body=Hello
+
+  # Skip X-Twilio-Signature header generation
+  twilio webhook:invoke <your-url> --no-signature
+
+  # Use Account SID from specific CLI profile
+  twilio webhook:invoke <your-url> --auth-token=$TWILIO_AUTH_TOKEN -p <your-profile>
 ```
 
 _See code: [src/commands/webhook/invoke.js](https://github.com/twilio-labs/plugin-webhook/blob/v0.1.0/src/commands/webhook/invoke.js)_
