@@ -28,6 +28,7 @@ class InvokeCommand extends TwilioClientCommand {
 
     try {
       const request = getAxiosRequest(flags.method, args.url, data, authToken)
+      this.logger.debug(`Signature: "${request.headers['X-Twilio-Signature']}"`);
 
       const response = await axios.default.request(request);
       if (flags.include) {
