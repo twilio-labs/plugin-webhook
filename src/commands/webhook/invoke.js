@@ -17,7 +17,7 @@ class InvokeCommand extends TwilioClientCommand {
         this.logger.error('A valid Auth Token is required.\nBy default we will use your TWILIO_AUTH_TOKEN environment variable. Alternatively, you can pass an auth token using the --auth-token="" flag or you can remove that requirement by using the --no-signature flag.');
 
         throw new Error('NO_AUTH_TOKEN')
-      } else {
+      } else if (!flags['no-signature']) {
         this.logger.error('The Auth Token you passed is not valid. Please check that you provided the full Auth Token.')
         throw new Error('INVALID_AUTH_TOKEN');
       }
