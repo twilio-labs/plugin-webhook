@@ -38,7 +38,9 @@ class InvokeCommand extends TwilioClientCommand {
         process.stdout.write(`HTTP/${response.request?.res.httpVersion || '1.1'} ${response.status} ${response.statusText}\n${headerOutput}\n\n`)
       }
 
-      process.stdout.write(response.data);
+      if (!flags['silent']) {
+        process.stdout.write(response.data);
+      }
 
     } catch (err) {
       this.logger.debug(err);
