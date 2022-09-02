@@ -1,0 +1,37 @@
+name: Run CI Tests
+
+on:
+  push:
+    branches:
+      - main
+      - 'features/*'
+  pull_request:
+    branches:
+      - main
+      - 'features/*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        node-version: [14, 16, 18]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Update npm to 8.x
+        run: |
+          npm i -g npm@8
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm test
+        env:
+          CI: true
+          NODE_ENV: test
