@@ -13,6 +13,7 @@
     "ora": "^5.4.0"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.24.4",
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/plugin-help": "^2.2.1",
     "@oclif/test": "^1.2.5",
@@ -66,7 +67,10 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
-    "version": "oclif-dev readme && git add README.md",
+    "version": "oclif-dev readme && git add README.md && changeset version",
+    "changeset": "changeset",
+    "create-version": "changeset version",
+    "release": "changeset publish",
     "test": "jest"
   }
 }
