@@ -14,17 +14,13 @@ This plugin adds functionality to the [Twilio CLI](https://github.com/twilio/twi
 
 ### Install the Twilio CLI
 
-Via `npm` or `yarn`:
+This tool is a plugin for the Twilio CLI meaning you'll have to first install the Twilio CLI. You can [find instructions for a variety of environments in our docs](https://www.twilio.com/docs/cli).
+
+If you are using `npm` or `yarn` for global CLI tools you can run:
 
 ```sh-session
 npm install -g twilio-cli
 yarn global add twilio-cli
-```
-
-Via `homebrew`:
-
-```sh-session
-brew tap twilio/brew && brew install twilio
 ```
 
 ## Usage
