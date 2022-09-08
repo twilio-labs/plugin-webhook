@@ -1,10 +1,11 @@
 name: Run CI Tests
 
 on:
-  push:
-    branches:
-      - main
-      - 'features/*'
+  workflow_call:
+  # push:
+  #   branches:
+  #     - main
+  #     - 'features/*'
   pull_request:
     branches:
       - main
@@ -20,9 +21,10 @@ jobs:
         node-version: [14, 16, 18]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Update npm to 8.x
