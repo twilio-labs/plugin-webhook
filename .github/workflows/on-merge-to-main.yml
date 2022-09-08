@@ -9,9 +9,10 @@ jobs:
   tests:
     name: Run tests
     uses: twilio-labs/plugin-webhook/.github/workflows/run-tests.yml@main
-    
+
   release:
     name: Run release work
+    needs: tests
     runs-on: ubuntu-latest
 
     steps:
