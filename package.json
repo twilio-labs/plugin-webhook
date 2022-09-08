@@ -1,7 +1,7 @@
 {
   "name": "@twilio-labs/plugin-webhook",
   "description": "Emulate webhook requests from your commandline",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Twilio Inc. <open-source@twilio.com> (https://www.twilio.com/labs)",
   "contributors": [
     "Dominik Kundel <dkundel@twilio.com>"
