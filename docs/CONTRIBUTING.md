@@ -56,6 +56,10 @@ This will make sure that your changes will appear in the changelog and that we c
 
 Once you are done, push your changes to a branch on your forked repository and open a pull request in the repository.
 
+## For Maintainers
+
+Version bumps are handled automatically by [this GitHub Action](../.github/workflows/on-merge-to-main.yml) whenever changes have been merged to `main`. If the automation will detect any changeset files inside the `.changeset` directory it will either open a new Pull Request to bump the version or force-push to the currently open Pull Request. In order to release to npm you'll have to merge that Pull Request which will automatically kick off the release.
+
 ## Code of Conduct
 
 All contributions and interactions with this project fall under our [Code of Conduct](https://github.com/twilio-labs/.github/blob/main/CODE_OF_CONDUCT.md)
