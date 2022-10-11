@@ -57,6 +57,66 @@ describe('webhook:invoke', () => {
       expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
     })
 
+  runTest.nock('https://handler.twilio.com', api => {
+        return api
+        .post(uri => uri.startsWith('/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
+        .matchHeader('x-twilio-signature', '1cfipeEX5I0Rc0lH2FLn5z6cIlI=')
+        .reply(200, '<Response><Say>POST</Say></Response>')
+      }
+  )
+  .twilioCommand(InvokeCommand, ['https://handler.twilio.com/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--type', 'whatsapp'])
+  .it('Handles whatsapp requests', ctx => {
+    expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
+  });
+
+  runTest.nock('https://handler.twilio.com', api => {
+        return api
+        .post(uri => uri.startsWith('/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
+        .matchHeader('x-twilio-signature', 'VE2h6z+hEtSN41szcryKpi8iCJc=')
+        .reply(200, '<Response><Say>POST</Say></Response>')
+      }
+  )
+  .twilioCommand(InvokeCommand, ['https://handler.twilio.com/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--type', 'mms'])
+  .it('Handles mms request with one media segment', ctx => {
+    expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
+  });
+
+  runTest.nock('https://handler.twilio.com', api => {
+        return api
+        .post(uri => uri.startsWith('/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
+        .matchHeader('x-twilio-signature', 'PhnuUyJ/hxvEaeu0PGl4pQAbOqY=')
+        .reply(200, '<Response><Say>POST</Say></Response>')
+      }
+  )
+  .twilioCommand(InvokeCommand, ['https://handler.twilio.com/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--type', 'mms','-d','MediaContentType1="image/jpeg"', '-d','MediaUrl1="https://test.sample.coom"'])
+  .it('Handles mms requests with multiple media segments', ctx => {
+    expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
+  });
+
+  runTest.nock('https://handler.twilio.com', api => {
+        return api
+        .post(uri => uri.startsWith('/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
+        .matchHeader('x-twilio-signature', '3LHD81brmaAql1O9Ww1Rm0NVQU8=')
+        .reply(200, '<Response><Say>POST</Say></Response>')
+      }
+  )
+  .twilioCommand(InvokeCommand, ['https://handler.twilio.com/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--type', 'syncdoc'])
+  .it('Handles sync document request', ctx => {
+    expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
+  });
+
+  runTest.nock('https://handler.twilio.com', api => {
+        return api
+        .post(uri => uri.startsWith('/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
+        .matchHeader('x-twilio-signature', 'GyrlLJqe+EHxn9xq5l7YmNabSQ0=')
+        .reply(200, '<Response><Say>POST</Say></Response>')
+      }
+  )
+  .twilioCommand(InvokeCommand, ['https://handler.twilio.com/twiml/EHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--type', 'syncmap'])
+  .it('Handles sync map request', ctx => {
+    expect(ctx.stdout).to.equal('<Response><Say>POST</Say></Response>')
+  });
+
 
   runTest.nock('https://handler.twilio.com', api => {
     return api

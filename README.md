@@ -50,24 +50,30 @@ ARGUMENTS
   URL  The URL of your webhook
 
 OPTIONS
-  -X, --method=(GET|POST)              [default: POST] The HTTP method that should be used for the webhook request
-  -d, --data-urlencode=data-urlencode  Override a request field. In the format Key=Value. Example: Body=Hello
-  -i, --include                        Output additional response data such as response headers
-  -l=(debug|info|warn|error|none)      [default: info] Level of logging messages.
-  -p, --profile=profile                Shorthand identifier for your profile.
+  -X, --method=(GET|POST)                          [default: POST] The HTTP method that should be used for the webhook
+                                                   request
 
-  --account-sid=account-sid            The Account SID to use in the event data. Defaults to your active CLI profile or
-                                       otherwise TWILIO_ACCOUNT_SID environment variable.
+  -d, --data-urlencode=data-urlencode              Override a request field. In the format Key=Value. Example:
+                                                   Body=Hello
 
-  --auth-token=auth-token              The Auth Token to use to generate the X-Twilio-Signature. Required unless
-                                       --no-signature is used. Defaults to value of TWILIO_AUTH_TOKEN environment
-                                       variable if nothing is passed.
+  -i, --include                                    Output additional response data such as response headers
 
-  --no-signature                       Circumvents the generation of the X-Twilio-Signature field
+  -l=(debug|info|warn|error|none)                  [default: info] Level of logging messages.
 
-  --silent                             Suppress  output and logs. This is a shorthand for "-l none -o none".
+  -p, --profile=profile                            Shorthand identifier for your profile.
 
-  --type=(sms|voice)                   [default: sms] What type of webhook event should it emulate?
+  --account-sid=account-sid                        The Account SID to use in the event data. Defaults to your active CLI
+                                                   profile or otherwise TWILIO_ACCOUNT_SID environment variable.
+
+  --auth-token=auth-token                          The Auth Token to use to generate the X-Twilio-Signature. Required
+                                                   unless --no-signature is used. Defaults to value of TWILIO_AUTH_TOKEN
+                                                   environment variable if nothing is passed.
+
+  --no-signature                                   Circumvents the generation of the X-Twilio-Signature field
+
+  --silent                                         Suppress  output and logs. This is a shorthand for "-l none -o none".
+
+  --type=(sms|voice|whatsapp|mms|syncdoc|syncmap)  [default: sms] What type of webhook event should it emulate?
 
 EXAMPLES
   # Invoke with a simulated call event
@@ -86,7 +92,7 @@ EXAMPLES
   twilio webhook:invoke <your-url> --auth-token=$TWILIO_AUTH_TOKEN -p <your-profile>
 ```
 
-_See code: [src/commands/webhook/invoke.js](https://github.com/twilio-labs/plugin-webhook/blob/v0.1.0/src/commands/webhook/invoke.js)_
+_See code: [src/commands/webhook/invoke.js](https://github.com/twilio-labs/plugin-webhook/blob/v0.1.1/src/commands/webhook/invoke.js)_
 <!-- commandsstop -->
 
 ### Contributing

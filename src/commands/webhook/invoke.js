@@ -52,7 +52,7 @@ class InvokeCommand extends TwilioClientCommand {
 
 InvokeCommand.flags = {
   'type': Flags.enum({
-    options: ['sms', 'voice'],
+    options: ['sms', 'voice','whatsapp','mms','syncdoc','syncmap'],
     description: 'What type of webhook event should it emulate?',
     'default': 'sms'
   }),
